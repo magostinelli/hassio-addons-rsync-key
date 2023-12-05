@@ -4,7 +4,7 @@ export server=$(jq --raw-output ".server" $CONFIG_PATH)
 export port=$(jq --raw-output ".port" $CONFIG_PATH)
 export directory=$(jq --raw-output ".directory" $CONFIG_PATH)
 export auto_purge=$(jq --raw-output ".auto_purge" $CONFIG_PATH)
-export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -oStrictHostKeyChecking=no"
+export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
 
 PUBLIC_KEY=`cat ~/.ssh/id_ed25519.pub`
 
