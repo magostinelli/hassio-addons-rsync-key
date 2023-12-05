@@ -21,8 +21,8 @@ rsync -av -e "$SSH_OPT" /backup/ $rsyncurl \
   || bashio::exit.nok "Could not upload backup."
 
 if [ $auto_purge -ge 1 ]; then
-	bashio::log.info 'Start auto purge, keep last $auto_purge backups'
-	for file in `ls -t /backup/*.tar | awk "NR>$auto_purge"`;do rm $file; done || bashio::exit.nok "Could not prune backups."
+	bashio::log.info "Start auto purge, keep last $auto_purge backups"
+	for file in `ls -t /backup/*.tar | awk "NR>$auto_purge"`;do echo "Purging file $file ...";rm $file; done || bashio::exit.nok "Could not prune backups."
 fi
 
 bashio::log.info 'Finished rsync-backups'
