@@ -24,8 +24,6 @@
     "server": "str",
     "port": "int",
     "directory": "str",
-    "username": "str",
-    "password": "str",
     "auto_purge": "int"
   }
 }
