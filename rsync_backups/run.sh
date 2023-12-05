@@ -20,7 +20,7 @@ fi
 
 rsyncurl="$server:$directory"
 
-bashio::log.info 'Uploading backup to to $rsyncurl ...'
+bashio::log.info "Uploading backup to to $rsyncurl ..."
 rsync -av -e $SSH_OPT /backup/ $rsyncurl \
   || bashio::exit.nok "Could not upload backup."
 
