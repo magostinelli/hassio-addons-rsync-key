@@ -18,10 +18,10 @@ if [ ! -f /data/known_hosts ]; then
      || bashio::exit.nok "Could not acquire host key from backup server."
 fi
 
-rsyncurl="$username@$server:$directory"
+rsyncurl="$server:$directory"
 
 bashio::log.info 'Uploading backup to to $rsyncurl ...'
-/ursync -av -e $SSH_OPT /backup/ $rsyncurl \
+rsync -av -e $SSH_OPT /backup/ $rsyncurl \
   || bashio::exit.nok "Could not upload backup."
 
 if [ $auto_purge -ge 1 ]; then
