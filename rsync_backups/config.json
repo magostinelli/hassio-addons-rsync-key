@@ -1,9 +1,9 @@
 {
-  "name": "Rsync Backups",
-  "version": "1.1.1",
-  "slug": "rsync_backups",
+  "name": "Rsync Backups with key auth",
+  "version": "1.0.1",
+  "slug": "rsync_backups_key",
   "description": "Transfers the Hass.io backups to a remote rsync server.",
-  "url": "https://github.com/tykarol/hassio-addons",
+  "url": "https://github.com/magostinelli/hassio-addons-rsync-key",
   "startup": "once",
   "boot": "manual",
   "arch": [
@@ -18,8 +18,6 @@
     "server": "rsync-server",
     "port": 22,
     "directory": "~/hassio-backups",
-    "username": "user",
-    "password": "password",
     "auto_purge": 0
   },
   "schema": {
