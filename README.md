@@ -1,4 +1,4 @@
-# @tykarol Home Assistant Add-ons
+# @magostinelli Home Assistant Add-ons
 
 ## About
 
@@ -6,19 +6,21 @@ Hass.io allows anyone to create add-on repositories to share their add-ons for H
 
 The primary goal of this project is to provide you (as a Hass.io / Home Assistant user) with additional, high quality, add-ons that allow you to take your automated home to the next level.
 
+This fork use an ssh key to authenticate to rsync server
+
 ## Installation
 
 Adding this add-ons repository to your Hass.io Home Assistant instance is pretty easy. Follow the [official instructions](https://www.home-assistant.io/hassio/installing_third_party_addons/) on the website of Home Assistant, and use the following URL:
 
 ```
-https://github.com/tykarol/hassio-addons
+https://github.com/magostinelli/hassio-addons-rsync-key
 ```
 
 # License
 
 MIT License
 
-Copyright (c) 2020 Karol Tyka
+Copyright (c) 2020 Karol Tykahttps://github.com/magostinelli/hassio-addons-rsync-key
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
