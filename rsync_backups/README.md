@@ -12,19 +12,6 @@ Example add-on configuration:
 server: rsync-server
 port: 22
 directory: ~/hassio-backups
-username: user
-password: password
-auto_purge: 0
-```
-
-or you can use also `!secret` eg.: (edit configuration in YAML):
-
-```yaml
-server: rsync-server
-port: 22
-directory: ~/hassio-backups
-username: user
-password: '!secret rsync_backups_password'
 auto_purge: 0
 ```
 
@@ -40,13 +27,6 @@ Server ssh port, e.g. `22`.
 
 Directoryon the server for backups, e.g. `~/hassio-backups`.
 
-### Option: `user` (required)
-
-Server ssh user, e.g. `root`.
-
-### Option: `password` (required)
-
-Server ssh password, e.g. `password`.
 
 ### Option: `auto_purge` (required)
 
