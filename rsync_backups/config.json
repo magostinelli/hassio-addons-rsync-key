@@ -15,6 +15,7 @@
   ],
   "map": ["backup:rw"],
   "options": {
+    "user": "remote user",
     "server": "rsync-server",
     "port": 22,
     "directory": "~/hassio-backups",
@@ -23,6 +24,7 @@
   "schema": {
     "server": "str",
     "port": "int",
+    "user": "str",
     "directory": "str",
     "auto_purge": "int"
   }
