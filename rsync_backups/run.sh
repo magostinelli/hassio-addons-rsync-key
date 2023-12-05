@@ -15,6 +15,7 @@ bashio::log.notice "${PUBLIC_KEY}"
 rsyncurl="$server:$directory"
 
 bashio::log.info "Uploading backup to to $rsyncurl ..."
+bashio::log.debug "rsync -av -e $SSH_OPT /backup/ $rsyncurl"
 rsync -av -e $SSH_OPT /backup/ $rsyncurl \
   || bashio::exit.nok "Could not upload backup."
 
