@@ -9,14 +9,15 @@ export access_token=$(jq --raw-output ".access_token" $CONFIG_PATH)
 export auto_purge=$(jq --raw-output ".auto_purge" $CONFIG_PATH)
 export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
 
-PUBLIC_KEY=`cat ~/.ssh/id_ed25519.pub`
+PUBLIC_KEY=$(cat ~/.ssh/id_ed25519.pub)
 
 if [ -n "$access_token" ] && [ -n "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
 	bashio::log.info "Changing binary sensor $binary_sensor to on"
-	curl -s -X POST -H "Authorization: Bearer $access_token" \
+	curl_output=$(curl -s -X POST -H "Authorization: Bearer $access_token" \
 	-H "Content-Type: application/json" \
 	-d '{"state": "on", "attributes": {"friendly_name": "Backup Rsync"}}' \
-	http://homeassistant:8123/api/states/binary_sensor.$binary_sensor
+	http://homeassistant:8123/api/states/binary_sensor.$binary_sensor)
+ 	bashio::log.info "Curl output: $curl_output"
 fi
 
 bashio::log.info "A public/private key pair was generated for you."
@@ -32,16 +33,17 @@ rsync -av -e "$SSH_OPT" /backup/ $rsyncurl || error=1
 
 if [ $auto_purge -ge 1 ]; then
 	bashio::log.info "Start auto purge, keep last $auto_purge backups"
-	for file in `ls -t /backup/*.tar | awk "NR>$auto_purge"`;do echo "Purging file $file ...";rm $file; done || bashio::exit.nok "Could not prune backups."
+	for file in $(ls -t /backup/*.tar | awk "NR>$auto_purge");do echo "Purging file $file ...";rm $file; done || bashio::exit.nok "Could not prune backups."
 fi
 
 if [ $error -eq 1 ]; then
 	if [ -n "$access_token" ] && [ -n "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
  		bashio::log.info "Changing binary sensor $binary_sensor to off"
- 		curl -s -X POST -H "Authorization: Bearer $access_token" \
+ 		curl_output=$(curl -s -X POST -H "Authorization: Bearer $access_token" \
    		-H "Content-Type: application/json" \
 		-d '{"state": "off", "attributes": {"friendly_name": "Backup Rsync"}}' \
-    		http://homeassistant:8123/api/states/binary_sensor.$binary_sensor
+    		http://homeassistant:8123/api/states/binary_sensor.$binary_sensor)
+      		bashio::log.info "Curl output: $curl_output"
 	fi
  	bashio::exit.nok "Could not upload backup."
  fi
