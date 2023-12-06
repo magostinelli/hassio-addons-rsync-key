@@ -28,7 +28,7 @@
     "port": "int",
     "user": "str",
     "directory": "str",
-    "auto_purge": "int".
+    "auto_purge": "int",
     "access_token": "str",
     "binary_sensor": "str"
   }
