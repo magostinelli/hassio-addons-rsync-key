@@ -1,6 +1,6 @@
 {
   "name": "Rsync Backups with key auth",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "slug": "rsync_backups_key",
   "description": "Transfers the Hass.io backups to a remote rsync server.",
   "url": "https://github.com/magostinelli/hassio-addons-rsync-key",
