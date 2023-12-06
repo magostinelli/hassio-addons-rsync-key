@@ -21,7 +21,7 @@
     "directory": "~/hassio-backups",
     "auto_purge": 0,
     "access_token": "MY_LONG_TERM_ACCESS_TOKEN",
-    "binary_sensor": "rsync_backup",
+    "binary_sensor": "rsync_backup"
   },
   "schema": {
     "server": "str",
