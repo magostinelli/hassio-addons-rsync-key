@@ -12,6 +12,7 @@ export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
 PUBLIC_KEY=`cat ~/.ssh/id_ed25519.pub`
 
 if [ -n "$access_token" ] && [ -n "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
+	bashio::log.info "Changing binary sensor $binary_sensor to on"
 	curl -s -X POST -H "Authorization: Bearer $access_token" \
 	-H "Content-Type: application/json" \
 	-d '{"state": "on", "attributes": {"friendly_name": "Backup Rsync"}}' \
@@ -27,22 +28,22 @@ rsyncurl="$user@$server:$directory"
 
 bashio::log.info "Uploading backup to to $rsyncurl ..."
 bashio::log.info "rsync -av -e "$SSH_OPT" /backup/ $rsyncurl"
-rsync -av -e "$SSH_OPT" /backup/ $rsyncurl \
-  || bashio::exit.nok "Could not upload backup."
+rsync -av -e "$SSH_OPT" /backup/ $rsyncurl || error=1
 
 if [ $auto_purge -ge 1 ]; then
 	bashio::log.info "Start auto purge, keep last $auto_purge backups"
-	for file in `ls -t /backup/*.tar | awk "NR>$auto_purge"`;do echo "Purging file $file ...";rm $file; done || error=1
+	for file in `ls -t /backup/*.tar | awk "NR>$auto_purge"`;do echo "Purging file $file ...";rm $file; done || bashio::exit.nok "Could not prune backups."
 fi
 
 if [ $error -eq 1 ]; then
 	if [ -n "$access_token" ] && [ -n "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
+ 		bashio::log.info "Changing binary sensor $binary_sensor to off"
  		curl -s -X POST -H "Authorization: Bearer $access_token" \
    		-H "Content-Type: application/json" \
 		-d '{"state": "off", "attributes": {"friendly_name": "Backup Rsync"}}' \
     		http://homeassistant:8123/api/states/binary_sensor.$binary_sensor
 	fi
- 	bashio::exit.nok "Could not prune backups."
+ 	bashio::exit.nok "Could not upload backup."
  fi
 
 bashio::log.info 'Finished rsync-backups'
