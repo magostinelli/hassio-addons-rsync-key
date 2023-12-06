@@ -11,7 +11,7 @@ export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
 
 PUBLIC_KEY=`cat ~/.ssh/id_ed25519.pub`
 
-if [ -z "$access_token" ] && [ -z "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]
+if [ -z "$access_token" ] && [ -z "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
 	curl -X POST -H "Authorization: Bearer $access_token" \
 	-H "Content-Type: application/json" \
 	-d '{"state": "on", "attributes": {"friendly_name": "Backup Rsync"}}' \
@@ -36,7 +36,7 @@ if [ $auto_purge -ge 1 ]; then
 fi
 
 if [ $error -eq 1 ]; then
-	if [ -z "$access_token" ] && [ -z "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]
+	if [ -z "$access_token" ] && [ -z "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
  		curl -X POST -H "Authorization: Bearer $access_token" \
    		-H "Content-Type: application/json" \
 		-d '{"state": "off", "attributes": {"friendly_name": "Backup Rsync"}}' \
