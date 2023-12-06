@@ -11,6 +11,13 @@ export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
 
 PUBLIC_KEY=`cat ~/.ssh/id_ed25519.pub`
 
+if [ -z "$access_token" ] && [ -z "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]
+	curl -X POST -H "Authorization: Bearer $access_token" \
+	-H "Content-Type: application/json" \
+	-d '{"state": "on", "attributes": {"friendly_name": "Backup Rsync"}}' \
+	http://homeassistant:8123/api/states/binary_sensor.$binary_sensor
+fi
+
 bashio::log.info "A public/private key pair was generated for you."
 bashio::log.notice "Please use this public key on the backup server:"
 bashio::log.notice "${PUBLIC_KEY}"
