@@ -12,7 +12,7 @@ export SSH_OPT="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
 PUBLIC_KEY=`cat ~/.ssh/id_ed25519.pub`
 
 if [ -n "$access_token" ] && [ -n "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
-	curl -X POST -H "Authorization: Bearer $access_token" \
+	curl -s -X POST -H "Authorization: Bearer $access_token" \
 	-H "Content-Type: application/json" \
 	-d '{"state": "on", "attributes": {"friendly_name": "Backup Rsync"}}' \
 	http://homeassistant:8123/api/states/binary_sensor.$binary_sensor
@@ -37,7 +37,7 @@ fi
 
 if [ $error -eq 1 ]; then
 	if [ -n "$access_token" ] && [ -n "$binary_sensor" ] && [ "$access_token" != "MY_LONG_TERM_ACCESS_TOKEN" ]; then
- 		curl -X POST -H "Authorization: Bearer $access_token" \
+ 		curl -s -X POST -H "Authorization: Bearer $access_token" \
    		-H "Content-Type: application/json" \
 		-d '{"state": "off", "attributes": {"friendly_name": "Backup Rsync"}}' \
     		http://homeassistant:8123/api/states/binary_sensor.$binary_sensor
