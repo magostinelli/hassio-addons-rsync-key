@@ -52,3 +52,10 @@ Run addon in the automation, example automation below:
       data:
         addon: '2caa1d32_rsync_backups' # you can get the addon id from URL when you go to the addon info
 ```
+
+## New in 1.0.10
+
+Two new options: state notification binary sensor, and access token.
+If you fill these two fields, a new binary sensor will be updated by addon when it runs:
+when the addon starts it will be on, if the rsync fail it will be set to off.
+For example: you can create an automation that check this sensor and notifiy you in case of fail.
